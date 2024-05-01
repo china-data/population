@@ -26,84 +26,10 @@
     </style>
   </head>
   <body>
-    <p>中国人口结构 2022 年</p>
-    <div id="container"></div>
-    <script src="https://npm.elemecdn.com/@antv/g2@4.2.8/dist/g2.min.js"></script>
-    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.1/dist/data-set.min.js"></script>
-    <script type="module">
-      const axisWidth = 50;
-
-      function convertData(arr) {
-        return arr.map(t => {
-          return {
-            age: t.ageLabel,
-            gender: t.sex === 'Male' ? '男' : '女',
-            population: t.value,
-          };
-        });
-      }
-
-      fetch('./2022.json')
-        .then(res => res.json())
-        .then(data => {
-          const chart = new G2.Chart({
-            container: 'container',
-            autoFit: true,
-            height: 1100,
-            padding: [50, 50, 50, 50],
-          });
-
-          chart.data(convertData(data));
-          chart.scale({
-            age: {
-              sync: true,
-              tickCount: 100,
-              // formatter(v) {
-              //   return '年龄：' + v;
-              // }
-            },
-            population: {
-              sync: true,
-              formatter(v) {
-                // return v + '%';
-                return (v + '').replace(/(\d)(?=(?:\d{4})+$)/g, '$1,');
-              },
-            },
-            gender: {
-              sync: true,
-
-            },
-          });
-
-          chart.facet('mirror', {
-            fields: ['gender'],
-            transpose: true,
-            padding: [0, axisWidth / 2, 0, axisWidth / 2],
-            eachView(view) {
-              view
-                .interval()
-                .position('age*population')
-                .color('gender', ['#1890ff', '#f04864']);
-            },
-          });
-
-          chart.on('afterrender', () => {
-            const { width: rWidth, x: rX } = chart.viewBBox;
-            const view = chart.views[0];
-            const { width: vWidth, x: vX } = view.viewBBox;
-            view.axis('age', {
-              label: {
-                style: {
-                  textAlign: 'center',
-                },
-                offset: rWidth / 2 - vWidth - rX - vX + axisWidth / 2,
-              },
-              tickLine: false,
-            });
-            view.render();
-          });
-          chart.render();
-        });
-    </script>
+    <p></p>
+    <ul>
+      <li><a href="./2024.html">中国人口结构 2024 年</a></li>
+      <li><a href="./2022.html">中国人口结构 2022 年</a></li>
+    </ul>
   </body>
 </html>
